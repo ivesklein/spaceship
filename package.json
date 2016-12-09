@@ -1,0 +1,23 @@
+{
+  "name": "spaceship",
+  "version": "1.0.0",
+  "description": "phaser version of spaceship",
+  "main": "index.js",
+  "dependencies": {
+    "phaser": "^2.6.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ivesklein/spaceship.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ivesklein/spaceship/issues"
+  },
+  "homepage": "https://github.com/ivesklein/spaceship#readme"
+}
