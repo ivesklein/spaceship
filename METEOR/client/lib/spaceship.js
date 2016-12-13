@@ -4,38 +4,43 @@ Meteor.gameStates.spaceship = {
 	context: {},
 	create: function() {
 		var game = Meteor.game;
+
+		//here we create the objetcs for the game
+
+		//the background space
 	    this.tilesprite = game.add.tileSprite(0, 0, 1366, 768, 'space');
 	    this.tilesprite.smoothed = false;
 	    this.tilesprite.scale.set(4);
 	    //tilesprite.animations.add('light', [1,2,3,4], 10, true);
+	    //this.tilesprite.play('light')
 
+	    //the player
 	    this.player = game.add.sprite(64, 64, 'player', 1);
 	    this.player.smoothed = false;
 	    this.player.scale.set(4);
-	    this.player.animations.add('wave', [1,2,3,4], 10, true);
-
+	    this.shipwave = this.player.animations.add('wave', [1,2,3,4], 10, true);
 	    game.physics.enable(this.player, Phaser.Physics.ARCADE);
+	    this.waving = false; //flag for animation/sound play and stop
 
+	    //the sounds
 	    this.sship = game.add.audio('shipsound');
+
 	    //this.swind = game.add.audio('wind');
 	    //this.swind.play('',0,0.5,true)
-	    //sounds = [ sship, swind]
-	    //game.sound.setDecodedCallback(sounds, start, this);
-	    this.waving = false;
 
+	    
+	    //logs
 		this.bmpText = game.add.bitmapText(10, 10, 'dotfont','Drag me around !',40);
 		this.bmpText3 = game.add.bitmapText(10, 60, 'dotfont','Drag me around !',40);
-
 		this.bmpText4 = game.add.bitmapText(10, 110, 'dotfont','Drag me around !',40);
 		this.bmpText5 = game.add.bitmapText(10, 160, 'dotfont','Drag me around !',40);
-		//this.bmpText5 = game.add.bitmapText(10, 170, 'dotfont','Drag me around !',34);
-		//this.bmpText6 = game.add.bitmapText(10, 210, 'dotfont','Drag me around !',34);
-
+		
+		//the keyboard controls
 	    this.cursors = game.input.keyboard.createCursorKeys();
+	    
+	    //go fullscreen
 	    game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
-
-	    //this.pointer = game.input.pointer
-		//game.input.onDown.add(this.gofull, this);
+	    game.input.onDown.add(this.gofull, this);
 
 	},
 	gofull: function() {
@@ -54,9 +59,10 @@ Meteor.gameStates.spaceship = {
 		var game = Meteor.game;
 		var instance = this.context;
 
+		//reset velocity
 	    this.player.body.velocity.set(0);
 
-
+	    //handle keys and set velocities
 	    if (this.cursors.left.isDown)
 	    {
 	        this.tilesprite.tilePosition.x += 4;
@@ -67,7 +73,6 @@ Meteor.gameStates.spaceship = {
 	        this.tilesprite.tilePosition.x -= 4;
 	        this.player.body.velocity.x = 100;
 	    }
-
 	    if (this.cursors.up.isDown)
 	    {
 	        this.tilesprite.tilePosition.y += 4;
@@ -79,10 +84,11 @@ Meteor.gameStates.spaceship = {
 	        this.player.body.velocity.y = 100;
 	    }
 
-	    this.tilesprite.play('light')
-
+	    
+	    //flag for stop
 	    var ismoving = false;
 
+	    //play animation and sounds
 	    if (this.cursors.left.isDown)
 	    {
 	        if(!this.waving){this.waving=true;this.sship.play('',0,1,true);}
@@ -112,6 +118,7 @@ Meteor.gameStates.spaceship = {
 	        ismoving = true;
 	    }
 
+	    //touch handler
 	    if (game.input.activePointer.isDown)
 	    {
 	        if(!this.waving){this.waving=true;this.sship.play('',0,1,true);}
@@ -133,18 +140,20 @@ Meteor.gameStates.spaceship = {
 	        ismoving = true;
 	    }
 	    
+	    //stop animation and sounds
 	    if(!ismoving)
 	    {
 	        if(this.waving){this.waving=false;this.sship.stop();}
 	        this.player.animations.stop();
 	    }
 
-	    this.bmpText.text = instance.text;
-	    
-	    this.player.animations._anims.wave.speed = (Math.abs(this.player.body.velocity.x)+Math.abs(this.player.body.velocity.y))*0.03 ;
+	    //change framerate
+	    //this.player.animations._anims.wave.speed = (Math.abs(this.player.body.velocity.x)+Math.abs(this.player.body.velocity.y))*0.03 ;
+	    this.shipwave.speed = (Math.abs(this.player.body.velocity.x)+Math.abs(this.player.body.velocity.y))*0.03 ;
 
-	    //console.log(game.input.activePointer)
 
+	    //log
+		this.bmpText.text = instance.text;
 	    this.bmpText3.text = "X ship "+Math.floor(this.player.world.x+16*4);
 	    this.bmpText4.text = "Y ship "+Math.floor(this.player.world.y+21*4);
 	   	this.bmpText5.text = "Velocity "+Math.floor(Math.abs(this.player.body.velocity.x)+Math.abs(this.player.body.velocity.y))

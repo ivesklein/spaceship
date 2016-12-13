@@ -4,6 +4,7 @@ Meteor.gameStates.load = {
 	preload: function() {
 		var game = Meteor.game;
 
+		//here we load the assets
 		game.add.text(80,150, 'loading...', {font:'30px Courier', fill:'#ffffff'});
 
 		game.load.spritesheet('space', 'assets/sprites/terrain/space.png', 32, 32);
