@@ -17,25 +17,32 @@ Meteor.gameStates.spaceship = {
 	    game.physics.enable(this.player, Phaser.Physics.ARCADE);
 
 	    this.sship = game.add.audio('shipsound');
-	    this.swind = game.add.audio('wind');
-	    this.swind.play('',0,0.5,true)
+	    //this.swind = game.add.audio('wind');
+	    //this.swind.play('',0,0.5,true)
 	    //sounds = [ sship, swind]
 	    //game.sound.setDecodedCallback(sounds, start, this);
 	    this.waving = false;
 
 		this.bmpText = game.add.bitmapText(10, 10, 'dotfont','Drag me around !',34);
+		this.bmpText2 = game.add.bitmapText(10, 50, 'dotfont','Drag me around !',34);
+
+		this.bmpText3 = game.add.bitmapText(10, 90, 'dotfont','Drag me around !',34);
+		this.bmpText4 = game.add.bitmapText(10, 130, 'dotfont','Drag me around !',34);
+		this.bmpText5 = game.add.bitmapText(10, 170, 'dotfont','Drag me around !',34);
+		this.bmpText6 = game.add.bitmapText(10, 210, 'dotfont','Drag me around !',34);
 
 	    this.cursors = game.input.keyboard.createCursorKeys();
 	    game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
 
-		game.input.onDown.add(this.gofull, this);
+	    //this.pointer = game.input.pointer
+		//game.input.onDown.add(this.gofull, this);
 
 	},
 	gofull: function() {
 		var game = Meteor.game;
 	    if (game.scale.isFullScreen)
 	    {
-	        game.scale.stopFullScreen();
+	        //game.scale.stopFullScreen();
 	    }
 	    else
 	    {
@@ -44,7 +51,7 @@ Meteor.gameStates.spaceship = {
 
 	},
 	update: function() {
-
+		var game = Meteor.game;
 		var instance = this.context;
 
 	    this.player.body.velocity.set(0);
@@ -73,37 +80,74 @@ Meteor.gameStates.spaceship = {
 
 	    this.tilesprite.play('light')
 
+	    var ismoving = false;
+
 	    if (this.cursors.left.isDown)
 	    {
 	        if(!this.waving){this.waving=true;this.sship.play('',0,1,true);}
 	        this.player.play('wave');
 	        instance.score.set(instance.score.get()+1)
+	        ismoving = true;
 	    }
 	    else if (this.cursors.right.isDown)
 	    {
 	        if(!this.waving){this.waving=true;this.sship.play('',0,1,true);}
 	        this.player.play('wave');
 	        instance.score.set(instance.score.get()+1)
+	        ismoving = true;
 	    }
 	    else if (this.cursors.up.isDown)
 	    {
 	        if(!this.waving){this.waving=true;this.sship.play('',0,1,true);}
 	        this.player.play('wave');
 	        instance.score.set(instance.score.get()+1)
+	        ismoving = true;
 	    }
-	    else if (cursors.down.isDown)
+	    else if (this.cursors.down.isDown)
 	    {
 	        if(!this.waving){this.waving=true;this.sship.play('',0,1,true);}
 	        this.player.play('wave');
 	        instance.score.set(instance.score.get()+1)
+	        ismoving = true;
 	    }
-	    else
+
+	    if (game.input.activePointer.isDown)
+	    {
+	        if(!this.waving){this.waving=true;this.sship.play('',0,1,true);}
+	        this.player.play('wave');
+	        instance.score.set(instance.score.get()+1)
+
+
+	   		var deltaX = +(game.input.activePointer.worldX-(this.player.world.x+16*4))
+	    	var deltaY = +(game.input.activePointer.worldY-(this.player.world.y+21*4))
+
+
+			this.tilesprite.tilePosition.x -= deltaX*0.04;
+			this.tilesprite.tilePosition.y -= deltaY*0.04;
+			this.player.body.velocity.x = deltaX;
+			this.player.body.velocity.y = deltaY;
+
+
+
+	        ismoving = true;
+	    }
+	    
+	    if(!ismoving)
 	    {
 	        if(this.waving){this.waving=false;this.sship.stop();}
 	        this.player.animations.stop();
 	    }
 
 	    this.bmpText.text = instance.text;
+	    
+	    //console.log(game.input.activePointer)
+
+	    this.bmpText2.text = game.input.activePointer.isDown?"isDown":"isUp";
+	    this.bmpText3.text = "worldX pointer "+Math.floor(game.input.activePointer.worldX);
+	    this.bmpText4.text = "worldY pointer "+Math.floor(game.input.activePointer.worldY);
+	   	this.bmpText5.text = "X delta "+Math.floor(game.input.activePointer.worldX-(this.player.world.x+16*4))
+	    this.bmpText6.text = "Y delta "+Math.floor(game.input.activePointer.worldY-(this.player.world.y+21*4))
+
 
 	}
 }

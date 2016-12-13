@@ -15,10 +15,11 @@ Template.game.onRendered(function(){
 
 	Meteor.gameStates.spaceship.context = instance
 
+	game.state.add('boot', Meteor.gameStates.boot);
 	game.state.add('load', Meteor.gameStates.load);
 	game.state.add('spaceship', Meteor.gameStates.spaceship);
 
-	game.state.start('load');
+	game.state.start('boot');
 	/*var tilesprite;
 	var cursors;
 
