@@ -23,13 +23,13 @@ Meteor.gameStates.spaceship = {
 	    //game.sound.setDecodedCallback(sounds, start, this);
 	    this.waving = false;
 
-		this.bmpText = game.add.bitmapText(10, 10, 'dotfont','Drag me around !',34);
-		this.bmpText2 = game.add.bitmapText(10, 50, 'dotfont','Drag me around !',34);
+		this.bmpText = game.add.bitmapText(10, 10, 'dotfont','Drag me around !',40);
+		this.bmpText3 = game.add.bitmapText(10, 60, 'dotfont','Drag me around !',40);
 
-		this.bmpText3 = game.add.bitmapText(10, 90, 'dotfont','Drag me around !',34);
-		this.bmpText4 = game.add.bitmapText(10, 130, 'dotfont','Drag me around !',34);
-		this.bmpText5 = game.add.bitmapText(10, 170, 'dotfont','Drag me around !',34);
-		this.bmpText6 = game.add.bitmapText(10, 210, 'dotfont','Drag me around !',34);
+		this.bmpText4 = game.add.bitmapText(10, 110, 'dotfont','Drag me around !',40);
+		this.bmpText5 = game.add.bitmapText(10, 160, 'dotfont','Drag me around !',40);
+		//this.bmpText5 = game.add.bitmapText(10, 170, 'dotfont','Drag me around !',34);
+		//this.bmpText6 = game.add.bitmapText(10, 210, 'dotfont','Drag me around !',34);
 
 	    this.cursors = game.input.keyboard.createCursorKeys();
 	    game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -55,6 +55,7 @@ Meteor.gameStates.spaceship = {
 		var instance = this.context;
 
 	    this.player.body.velocity.set(0);
+
 
 	    if (this.cursors.left.isDown)
 	    {
@@ -140,13 +141,13 @@ Meteor.gameStates.spaceship = {
 
 	    this.bmpText.text = instance.text;
 	    
+	    this.player.animations._anims.wave.speed = (Math.abs(this.player.body.velocity.x)+Math.abs(this.player.body.velocity.y))*0.03 ;
+
 	    //console.log(game.input.activePointer)
 
-	    this.bmpText2.text = game.input.activePointer.isDown?"isDown":"isUp";
-	    this.bmpText3.text = "worldX pointer "+Math.floor(game.input.activePointer.worldX);
-	    this.bmpText4.text = "worldY pointer "+Math.floor(game.input.activePointer.worldY);
-	   	this.bmpText5.text = "X delta "+Math.floor(game.input.activePointer.worldX-(this.player.world.x+16*4))
-	    this.bmpText6.text = "Y delta "+Math.floor(game.input.activePointer.worldY-(this.player.world.y+21*4))
+	    this.bmpText3.text = "X ship "+Math.floor(this.player.world.x+16*4);
+	    this.bmpText4.text = "Y ship "+Math.floor(this.player.world.y+21*4);
+	   	this.bmpText5.text = "Velocity "+Math.floor(Math.abs(this.player.body.velocity.x)+Math.abs(this.player.body.velocity.y))
 
 
 	}
