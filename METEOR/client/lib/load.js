@@ -14,6 +14,8 @@ Meteor.gameStates.load = {
 		game.load.audio('shipsound', ['assets/audio/ship.wav', 'assets/audio/ship.ogg']);
 
 		game.load.bitmapFont('dotfont', 'assets/fonts/font.png', 'assets/fonts/font.fnt');
+		game.load.bitmapFont('retrofont', 'assets/fonts/retro.png', 'assets/fonts/retro.fnt');
+
 
 	},
 	create: function() {

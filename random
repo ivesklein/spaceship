@@ -1,0 +1,14 @@
+
+<script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyA7YXZiF9_-jBCYzf2k9PQqxW3d2WAdm-w",
+    authDomain: "save-the-cows.firebaseapp.com",
+    databaseURL: "https://save-the-cows.firebaseio.com",
+    projectId: "save-the-cows",
+    storageBucket: "",
+    messagingSenderId: "891603519008"
+  };
+  firebase.initializeApp(config);
+</script>

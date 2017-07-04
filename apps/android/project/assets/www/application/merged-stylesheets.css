@@ -1,0 +1,12 @@
+/* CSS declarations go here */
+
+body {
+  padding: 0;
+  margin: 0;
+  background: gray;
+}
+
+#phaser-example {
+  width: 100%;
+  height: 100%;
+}

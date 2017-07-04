@@ -30,10 +30,10 @@ Meteor.gameStates.spaceship = {
 
 	    
 	    //logs
-		this.bmpText = game.add.bitmapText(10, 10, 'dotfont','Drag me around !',40);
-		this.bmpText3 = game.add.bitmapText(10, 60, 'dotfont','Drag me around !',40);
-		this.bmpText4 = game.add.bitmapText(10, 110, 'dotfont','Drag me around !',40);
-		this.bmpText5 = game.add.bitmapText(10, 160, 'dotfont','Drag me around !',40);
+		this.bmpText = game.add.bitmapText(10, 10, 'retrofont','Drag me around !',40);
+		this.bmpText3 = game.add.bitmapText(10, 60, 'retrofont','Drag me around !',40);
+		this.bmpText4 = game.add.bitmapText(10, 110, 'retrofont','Drag me around !',40);
+		this.bmpText5 = game.add.bitmapText(10, 160, 'retrofont','Drag me around !',40);
 		
 		//the keyboard controls
 	    this.cursors = game.input.keyboard.createCursorKeys();
